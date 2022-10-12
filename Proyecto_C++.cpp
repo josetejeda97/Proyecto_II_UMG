@@ -1,9 +1,7 @@
-# Proyecto realizado en C++
-**El siguiente proyecto esta basado en el manejo de archivos, en el cual consta de un menu con 3 opciones para la creacion del archivo, lectura del archivo, manipulacion del archuivo**
-
-## Declaracion del MENU del programa
-**En el siguiente bloque de codigo se realiza la creacion de un menu, en el cual se obtienen multiples opciones como:Agregar Persona, Ver Personas,Buscar Personas,Modificar Personas**
-```c++
+#include <iostream>
+#include <fstream>
+#include <windows.h>
+using namespace std;
 int menu(){
 	int x;
 	system("cls");
@@ -16,9 +14,8 @@ int menu(){
 	cout << "Opcion ";
 	cin >> x;
 	return x;
-```
-**Se declaran las variables: ced, precio, proveedor, existencia, estado, descuento y se leen variables**
-```c++
+}
+
 bool verifica(string ced){
 	ifstream leer("Personas.txt", ios::in);
 	string Nom;
@@ -36,17 +33,19 @@ bool verifica(string ced){
 		leer>>existencia;
 		leer>>estado;
 		leer>>descuento;
-
-```
-**Al momento de ingresar un codigo repetido se genera el siguiente codigo:**
-`if(Ced == ced){
-			cout << "Â¡Â¡Â¡Este codigo ya existe!!!";
+		
+		if(Ced == ced){
+			cout << "¡¡¡Este codigo ya existe!!!";
 			Sleep(1500);
 			leer.close();
 			return false;
-`
-**se crea la variable crear para poder ingresar nuevos productos:**
-```c++
+		}
+		leer>>Nom;
+	}
+	leer.close();
+	return true;
+}
+
 void agregar (ofstream &es){
 	system("cls");
 	string Nom;
@@ -75,9 +74,7 @@ void agregar (ofstream &es){
 	es << Nom << " " << Ced << " " << precio << " " << proveedor << " " << existencia<< " " << estado << " " << descuento<< " " << "\n";
 	es.close();
 }
-```
-**Se crea la opcion de ver registros por medio de un While**
-```c++
+
 void verRegistros(ifstream &Lec){
 	system("cls");
 	string nom;
@@ -107,46 +104,46 @@ void verRegistros(ifstream &Lec){
 		cout<<"--------------"<<endl;
 		Lec>>nom;
 	}
-```
-**Se crea la opcion de buscqueda en la aplicion el cual realiza la busqueda por medio del codigo**
-```c++
-void verRegistros(ifstream &Lec){
-	system("cls");
-	string nom;
-	string ced;
-	float precio;
-	string proveedor;
-	int existencia;
-	char estado;
-	float descuento;
-	Lec.open("Personas.txt", ios::in);
-	cout<<"----Personas Registradas----"<< endl<<endl;
-	Lec>>nom;
-	while(!Lec.eof()){
-		Lec>>ced;
-		Lec>>precio;
-		Lec>>proveedor;
-		Lec>>existencia;
-		Lec>>estado;
-		Lec>>descuento;
-		cout<<"Nombre------: "<<nom<<endl;
-		cout<<"Codigo----: "<<ced<<endl;
-		cout<<"Precio------: "<<precio<<endl;
-		cout<<"Proveedor------: "<<proveedor<<endl;
-		cout<<"Existencia----: "<<existencia<<endl;
-		cout<<"Estado------: "<<estado<<endl;
-		cout<<"Descuento------: "<<descuento<<endl;
-		cout<<"--------------"<<endl;
-		Lec>>nom;
-	}
-```
-**En caso no encuentre los datos realizara lo siguiente:**
-```c++
-cout<<"Dato no encontrado"<<endl;
+	Lec.close();
 	system("pause");
-```
-**Se cuenta con la opcion de modificar el cual modifica el archivo Personas.txt:Â¨**
-```c++
+}
+
+void buscarPersona(ifstream &Lec){
+	system("cls");
+	Lec.open("Personas.txt", ios::in);
+	string nom, ced, proveedor,cedaux;
+	float precio,descuento;
+	int existencia;
+	char estado;
+	bool encontrado = false;
+	cout << "Digite el codigo: ";
+	cin >> cedaux;
+	Lec>>nom;
+	while(!Lec.eof() && !encontrado){
+		Lec>>ced;
+        Lec>>precio;
+		Lec>>proveedor;
+		Lec>>existencia;
+		Lec>>estado;
+		Lec>>descuento;    
+		if(ced == cedaux){
+			cout << "Nombre-----: "<<nom<<endl;
+			cout << "Codigo ----: "<<ced<<endl;
+			cout << "Precio ----: "<<precio<<endl;
+			cout << "Proveedor ----: "<<proveedor<<endl;
+			cout << "Existencia ----: "<<existencia<<endl;
+			cout << "Estado ----: "<<estado<<endl;
+			cout << "Descuento ----: "<<descuento<<endl;
+			cout << "----------------------"<<endl;
+			encontrado = true;
+		}
+		Lec>>nom;
+	}
+	Lec.close();
+	if(!encontrado)
+	cout<<"Dato no encontrado"<<endl;
+	system("pause");
+}
 void modificar(ifstream &Lec){
 	system("cls");
 	string nom;
@@ -198,17 +195,13 @@ void modificar(ifstream &Lec){
 		}
 		Lec.close();
 		aux.close();
-```
-**En dado caso el usaurio coloque un valor malo ejecutara lo siguiente:**
-```c++
-out<<"Error"<<endl;
+	}else
+	cout<<"Error"<<endl;
 	remove("Personas.txt");
 	rename("auxiliar.txt", "Personas.txt");
-
-```
-##Por ultimo nos da la opcion de volver a regresar al menu o cerrar programa:**
-```c++
-nt main(){
+	
+}
+int main(){
 	ofstream Esc;
 	ifstream Lec;
 	int op;
@@ -232,4 +225,4 @@ nt main(){
 	} while(op != 4);
 	
 	return 0;
-```
+}
