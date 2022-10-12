@@ -34,3 +34,8 @@ todos los productos que contengan dicha palabra en su nombre
 
 Adicional para mas documentacion dirigirse a la siguiente pagina web: [text](https://umgt-my.sharepoint.com/:f:/g/personal/jsalazart3_miumg_edu_gt/EoK_XzSiwfxDv9xbI0jM-MABdGQRGXXUmQrw76ud0rtzGQ?e=BICjmY)
 
+De igual forma el proyecto fue subido en los siguientes repositorios:
+https://gitlab.com/josetejeda97/Proyecto_II_UMG
+https://github.com/josetejeda97/Proyecto_II_UMG
+https://bitbucket.org/jose_tejeda97/proyecto_ii_umg/src/main/
+https://dev.azure.com/jsalazart3/Proyecto%20II%20UMG/_git/Proyecto%20II%20UMG
